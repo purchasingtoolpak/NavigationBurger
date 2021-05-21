@@ -1,0 +1,58 @@
+ {#<ul class="menu" id="navigationBurger-menu"> 
+  {% for item in items %}
+    {% set hasChildren = item.get_children is defined and item.get_children|length > 0 %}
+      {% if hasChildren %} 
+					<li class="menu-label is-font-2 {{ item.current ? 'menu-item--current' }}" aria-haspopup="true">
+              {{ item.title }}
+          </li>
+     
+      {% for item in item.get_children %}
+        
+                <li class="menu-item {{ item.current ? 'menu-item--current' }}" aria-haspopup="true">
+                  <a class="menu-link" href="{{ item.link }}" {{ item.target == '_blank' ? 'target="_blank" rel="noreferrer noopener"' }}>
+                  {{ item.title }}
+                  </a>
+              </li>  
+            
+      {% endfor %}
+       
+      {% endif %}
+    {% else %}
+    <li class="menu-item {{ item.current ? 'menu-item--current' }}" aria-haspopup="true">
+      <a class="menu-link" href="{{ item.link }}" {{ item.target == '_blank' ? 'target="_blank" rel="noreferrer noopener"' }}>
+        {{ item.title }}
+      </a>
+    </li>
+  {% endfor %}
+</ul>  
+#}
+<div class="tabs menu" id="navigationBurger-menu">
+   {% for item in items %}
+    {% set hasChildren = item.get_children is defined and item.get_children|length > 0 %}
+      {% if hasChildren %}     
+        <div class="tab">
+          <input class="cbx" type="checkbox" id="chck{{ loop.index }}">
+          <label class="tab-label" for="chck{{ loop.index }}">{{ item.title }}</label>
+          <div class="tab-content">
+            {% for item in item.get_children %}
+        
+                <li class="menu-item {{ item.current ? 'menu-item--current' }}" aria-haspopup="true">
+                  <a class="menu-link" href="{{ item.link }}" {{ item.target == '_blank' ? 'target="_blank" rel="noreferrer noopener"' }}>
+                  {{ item.title }}
+                  </a>
+              </li>  
+            
+          {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+      {# <div class="tab">
+        <input type="checkbox" id="chck2">
+        <label class="tab-label" for="chck2">Item 2</label>
+        <div class="tab-content">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. A, in!
+        </div>
+      </div> #}
+</div>      
+
